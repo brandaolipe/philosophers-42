@@ -6,23 +6,11 @@
 /*   By: febranda <febranda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 18:11:31 by febranda          #+#    #+#             */
-/*   Updated: 2026/06/22 20:02:07 by febranda         ###   ########.fr       */
+/*   Updated: 2026/06/23 20:07:51 by febranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	error_message(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		write(2, str[i], 1);
-		i++;
-	}
-}
 
 int	main(int ac, char **av)
 {
