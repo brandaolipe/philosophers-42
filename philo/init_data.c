@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: userzer0 <userzer0@student.42.fr>          +#+  +:+       +#+        */
+/*   By: febranda <febranda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 15:01:09 by febranda          #+#    #+#             */
-/*   Updated: 2026/06/29 12:56:12 by userzer0         ###   ########.fr       */
+/*   Updated: 2026/06/29 19:42:42 by febranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-t_table	*init_data(int ac, char **av)
+t_table	*init_data(char **av)
 {
 	t_table	*table;
 
@@ -27,7 +27,7 @@ t_table	*init_data(int ac, char **av)
 		free(table);
 		return (NULL);
 	}
-	table->philos = init_philo_array(av);
+	table->philos = init_philo_array(table, av);
 	if (!table->philos)
 	{
 		ft_clean_forks(table);
@@ -62,7 +62,7 @@ pthread_mutex_t	*init_fork_array(char **av)
 	return (forks);
 }
 
-t_philo	*init_philo_array(char **av)
+t_philo	*init_philo_array(t_table *table, char **av)
 {
 	t_philo	*philos;
 	int		num_philos;
@@ -79,7 +79,6 @@ t_philo	*init_philo_array(char **av)
 		philos[i].last_meal = 0;
 		philos[i].has_eaten = 0;
 		philos[i].table = table;
-		//distribuição dos garfos
 		philos[i].left_fork = &table->forks[i];
 		philos[i].right_fork = &table->forks[(i + 1) % num_philos];
 		pthread_mutex_init(&philos[i].meal_mutex, NULL);

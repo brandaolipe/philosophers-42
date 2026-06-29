@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: userzer0 <userzer0@student.42.fr>          +#+  +:+       +#+        */
+/*   By: febranda <febranda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 19:44:41 by febranda          #+#    #+#             */
-/*   Updated: 2026/06/29 12:57:51 by userzer0         ###   ########.fr       */
+/*   Updated: 2026/06/29 19:35:35 by febranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define FORK		"has taken a fork"
 # define DIED		"died"
 
-typedef struct s_table t_table;
+typedef struct s_table	t_table;
 
 typedef struct s_philo
 {
@@ -55,24 +55,26 @@ typedef struct s_table
 }	t_table;
 
 // PARSER
-t_table			*init_data(int ac, char **av);
+t_table			*init_data(char **av);
 pthread_mutex_t	*init_fork_array(char **av);
 t_philo			*init_philo_array(t_table *table, char **av);
 t_table			*init_table(char **av);
 int				verify_arguments(char **av);
 
 // UTILS
-void	error_message(char *str);
-long	ft_atol(const char *str);
-int		ft_atoi(const char *str);
-long	get_time(void);
-int		get_end(t_table *table);
-void	set_end(t_table *table);
-void	ft_usleep(long time_in_ms, t_table *table);
+void			error_message(char *str);
+long			ft_atol(const char *str);
+int				ft_atoi(const char *str);
+long			get_time(void);
+int				get_end(t_table *table);
+void			set_end(t_table *table);
+void			ft_usleep(long time_in_ms, t_table *table);
+void			print_state(t_philo *philo, char *status);
 
-void	*philo_routine(void *arg);
+void			*philo_routine(void *arg);
+int				start_simulation(t_table *table);
 
-void  ft_clean_forks(t_table *table);
-void	ft_clean_all(t_table *table);
+void			ft_clean_forks(t_table *table);
+void			ft_clean_all(t_table *table);
 
 #endif

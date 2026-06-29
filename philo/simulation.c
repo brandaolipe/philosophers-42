@@ -1,3 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   simulation.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: febranda <febranda@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/29 19:36:41 by febranda          #+#    #+#             */
+/*   Updated: 2026/06/29 19:38:46 by febranda         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "philo.h"
+
 static int	philo_died(t_philo *philo)
 {
 	long	time;
@@ -26,13 +40,13 @@ static void	monitor_philos(t_table *table)
 		{
 			if (philo_died(&table->philos[i]))
 			{
-				set_end(table);
 				print_state(&table->philos[i], DIED);
+				set_end(table);
 				return ;
 			}
 			pthread_mutex_lock(&table->philos[i].meal_mutex);
 			if (table->nb_of_meals != -1
-          && table->philos[i].has_eaten >= table->nb_of_meals)
+				&& table->philos[i].has_eaten >= table->nb_of_meals)
 				all_ate_enough++;
 			pthread_mutex_unlock(&table->philos[i].meal_mutex);
 			i++;
@@ -55,7 +69,7 @@ int	start_simulation(t_table *table)
 	while (i < table->nb_of_philo)
 	{
 		table->philos[i].last_meal = table->start_time;
-		if (pthread_create(&table->philos[i].thread, NULL, 
+		if (pthread_create(&table->philos[i].thread, NULL,
 				&philo_routine, &table->philos[i]) != 0)
 		{
 			set_end(table);

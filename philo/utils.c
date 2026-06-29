@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: userzer0 <userzer0@student.42.fr>          +#+  +:+       +#+        */
+/*   By: febranda <febranda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 19:25:06 by febranda          #+#    #+#             */
-/*   Updated: 2026/06/29 13:34:41 by userzer0         ###   ########.fr       */
+/*   Updated: 2026/06/29 19:39:36 by febranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "philo.h"
 
 long	ft_atol(const char *str)
 {
@@ -40,7 +42,7 @@ int	ft_atoi(const char *str)
 
 	number = 0;
 	sign = 1;
-	while(*str == ' ' || (*str >= 9 && *str <= 13))
+	while (*str == ' ' || (*str >= 9 && *str <= 13))
 		str++;
 	if (*str == '-' || *str == '+')
 	{
