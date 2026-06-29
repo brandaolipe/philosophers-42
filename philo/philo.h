@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: febranda <febranda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: userzer0 <userzer0@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 19:44:41 by febranda          #+#    #+#             */
-/*   Updated: 2026/06/23 20:01:41 by febranda         ###   ########.fr       */
+/*   Updated: 2026/06/29 12:57:51 by userzer0         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,23 @@
 # include <stdlib.h>
 # include <pthread.h>
 # include <unistd.h>
+# include <sys/time.h>
+
+# define EATING		"is eating"
+# define SLEEPING	"is sleeping"
+# define THINKING	"is thinking"
+# define FORK		"has taken a fork"
+# define DIED		"died"
+
+typedef struct s_table t_table;
 
 typedef struct s_philo
 {
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
+	pthread_mutex_t	meal_mutex;
 	pthread_t		thread;
+	t_table			*table;
 	long			last_meal;
 	long			has_eaten;
 	int				id;
@@ -30,20 +41,38 @@ typedef struct s_philo
 
 typedef struct s_table
 {
-	t_philo	*philos;
-	long	time_to_die;
-	long	time_to_eat;
-	long	time_to_sleep;
-	long	nb_of_meals;
-	long	nb_of_philo;
-	int		dead;
+	pthread_mutex_t	end_mutex;
+	pthread_mutex_t	print_mutex;
+	pthread_mutex_t	*forks;
+	t_philo			*philos;
+	long			start_time;
+	long			time_to_die;
+	long			time_to_eat;
+	long			time_to_sleep;
+	long			nb_of_meals;
+	long			nb_of_philo;
+	int				end;
 }	t_table;
 
-//PARSER
-t_table	*init_data(int ac, char **av);
-int		verify_arguments(char **av);
-long	ft_atol(const char *str);
+// PARSER
+t_table			*init_data(int ac, char **av);
+pthread_mutex_t	*init_fork_array(char **av);
+t_philo			*init_philo_array(t_table *table, char **av);
+t_table			*init_table(char **av);
+int				verify_arguments(char **av);
 
+// UTILS
 void	error_message(char *str);
+long	ft_atol(const char *str);
+int		ft_atoi(const char *str);
+long	get_time(void);
+int		get_end(t_table *table);
+void	set_end(t_table *table);
+void	ft_usleep(long time_in_ms, t_table *table);
+
+void	*philo_routine(void *arg);
+
+void  ft_clean_forks(t_table *table);
+void	ft_clean_all(t_table *table);
 
 #endif

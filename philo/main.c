@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: febranda <febranda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: userzer0 <userzer0@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 18:11:31 by febranda          #+#    #+#             */
-/*   Updated: 2026/06/23 20:07:51 by febranda         ###   ########.fr       */
+/*   Updated: 2026/06/29 12:56:19 by userzer0         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,12 @@ int	main(int ac, char **av)
 		error_message("Error: Wrong number of arguments\n");
 		return (1);
 	}
-	table = init_table(ac, av);
+	table = init_data(ac, av);
 	if (!table)
 	{
 		error_message("Error: Invalid arguments\n");
 		return (1);
 	}
-	//init_routines
-	//free table
+	start_simulation(table);
 	return (0);
 }
