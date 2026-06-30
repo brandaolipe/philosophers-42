@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: febranda <febranda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: userzer0 <userzer0@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 19:25:06 by febranda          #+#    #+#             */
-/*   Updated: 2026/06/29 19:39:36 by febranda         ###   ########.fr       */
+/*   Updated: 2026/06/30 12:39:19 by userzer0         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,28 @@ void	error_message(char *str)
 		write(2, &str[i], 1);
 		i++;
 	}
+}
+
+int	verify_arguments(char **av)
+{
+	int	i;
+	int	j;
+
+	i = 1;
+	while (av[i])
+	{
+		j = 0;
+		if (av[i][j] == '+')
+			j++;
+		if (av[i][j] == '\0')
+			return (1);
+		while (av[i][j])
+		{
+			if (av[i][j] < '0' || av[i][j] > '9')
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   simulation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: febranda <febranda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: userzer0 <userzer0@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/29 19:36:41 by febranda          #+#    #+#             */
-/*   Updated: 2026/06/29 19:38:46 by febranda         ###   ########.fr       */
+/*   Updated: 2026/06/30 13:06:29 by userzer0         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,32 @@ static int	philo_died(t_philo *philo)
 	return (0);
 }
 
+static int	philo_finished_eating(t_table *table)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (i < table->nb_of_philo)
+	{
+		pthread_mutex_lock(&table->philos[i].meal_mutex);
+		if (table->nb_of_meals != -1
+			&& table->philos[i].has_eaten >= table->nb_of_meals)
+			count++;
+		pthread_mutex_unlock(&table->philos[i].meal_mutex);
+		i++;
+	}
+	return (count == table->nb_of_philo);
+}
+
 static void	monitor_philos(t_table *table)
 {
 	int		i;
-	int		all_ate_enough;
 
 	while (!get_end(table))
 	{
 		i = 0;
-		all_ate_enough = 0;
 		while (i < table->nb_of_philo)
 		{
 			if (philo_died(&table->philos[i]))
@@ -44,19 +61,14 @@ static void	monitor_philos(t_table *table)
 				set_end(table);
 				return ;
 			}
-			pthread_mutex_lock(&table->philos[i].meal_mutex);
-			if (table->nb_of_meals != -1
-				&& table->philos[i].has_eaten >= table->nb_of_meals)
-				all_ate_enough++;
-			pthread_mutex_unlock(&table->philos[i].meal_mutex);
 			i++;
 		}
-		if (table->nb_of_meals != -1 && all_ate_enough == table->nb_of_philo)
+		if (table->nb_of_meals != -1 && philo_finished_eating(table))
 		{
 			set_end(table);
 			return ;
 		}
-		usleep(1000);
+		//usleep(1000);
 	}
 }
 

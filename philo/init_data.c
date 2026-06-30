@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: febranda <febranda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: userzer0 <userzer0@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 15:01:09 by febranda          #+#    #+#             */
-/*   Updated: 2026/06/29 19:42:42 by febranda         ###   ########.fr       */
+/*   Updated: 2026/06/30 12:39:30 by userzer0         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,20 @@ t_philo	*init_philo_array(t_table *table, char **av)
 	return (philos);
 }
 
+static void	fill_table_nb(t_table *table, char **av)
+{
+	table->nb_of_philo = ft_atol(av[1]);
+	table->time_to_die = ft_atol(av[2]);
+	table->time_to_eat = ft_atol(av[3]);
+	table->time_to_sleep = ft_atol(av[4]);
+	table->end = 0;
+	table->nb_of_meals = -1;
+	if (av[5])
+		table->nb_of_meals = ft_atol(av[5]);
+	table->forks = NULL;
+	table->philos = NULL;
+}
+
 t_table	*init_table(char **av)
 {
 	t_table	*table;
@@ -105,39 +119,6 @@ t_table	*init_table(char **av)
 		free(table);
 		return (NULL);
 	}
-	table->nb_of_philo = ft_atol(av[1]);
-	table->time_to_die = ft_atol(av[2]);
-	table->time_to_eat = ft_atol(av[3]);
-	table->time_to_sleep = ft_atol(av[4]);
-	table->end = 0;
-	table->nb_of_meals = -1;
-	if (av[5])
-		table->nb_of_meals = ft_atol(av[5]);
-	table->forks = NULL;
-	table->philos = NULL;
+	fill_table_nb(table, av);
 	return (table);
-}
-
-int	verify_arguments(char **av)
-{
-	int	i;
-	int	j;
-
-	i = 1;
-	while (av[i])
-	{
-		j = 0;
-		if (av[i][j] == '+')
-			j++;
-		if (av[i][j] == '\0')
-			return (1);
-		while (av[i][j])
-		{
-			if (av[i][j] < '0' || av[i][j] > '9')
-				return (1);
-			j++;
-		}
-		i++;
-	}
-	return (0);
 }

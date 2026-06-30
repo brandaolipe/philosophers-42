@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: febranda <febranda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: userzer0 <userzer0@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/29 19:35:57 by febranda          #+#    #+#             */
-/*   Updated: 2026/06/29 19:36:25 by febranda         ###   ########.fr       */
+/*   Updated: 2026/06/30 13:05:52 by userzer0         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include  "philo.h"
+#include "philo.h"
 
 static void	philo_eat(t_philo *philo);
 static void	philo_sleep_think(t_philo *philo);
@@ -62,11 +62,3 @@ static void	philo_sleep_think(t_philo *philo)
 	ft_usleep(philo->table->time_to_sleep, philo->table);
 	print_state(philo, THINKING);
 }
-
-// void	ft_one_philo()
-// {
-// 	// criar um philosofo;
-// 	// criar um garfo
-// 	// printar que pegou um garfo
-// 	// printar que morreu;
-// }
